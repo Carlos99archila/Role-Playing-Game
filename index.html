@@ -2,43 +2,53 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+        <!-- Vincula el archivo CSS para los estilos del juego -->
         <link rel="stylesheet" href="./assets/css/styles.css" />
         <title>RPG - Dragon Repeller</title>
     </head>
     <body>
+        <!-- Contenedor principal del juego -->
         <div id="game">
+            <!-- Sección de estadísticas del jugador -->
             <div id="stats">
-                <span class="stat"
-                    >XP: <strong><span id="xpText">0</span></strong></span
-                >
-                <span class="stat"
-                    >Health:
-                    <strong><span id="healthText">100</span></strong></span
-                >
-                <span class="stat"
-                    >Gold: <strong><span id="goldText">50</span></strong></span
-                >
+                <span class="stat">
+                    XP: <strong><span id="xpText">0</span></strong>
+                </span>
+                <span class="stat">
+                    Health: <strong><span id="healthText">100</span></strong>
+                </span>
+                <span class="stat">
+                    Gold: <strong><span id="goldText">50</span></strong>
+                </span>
             </div>
+
+            <!-- Controles del juego con botones para acciones principales -->
             <div id="controls">
                 <button id="button1">Go to store</button>
                 <button id="button2">Go to cave</button>
                 <button id="button3">Fight dragon</button>
             </div>
+
+            <!-- Estadísticas del monstruo en combate -->
             <div id="monsterStats">
-                <span class="stat"
-                    >Monster Name:
-                    <strong><span id="monsterName"></span></strong
-                ></span>
-                <span class="stat"
-                    >Health: <strong><span id="monsterHealth"></span></strong
-                ></span>
+                <span class="stat">
+                    Monster Name:
+                    <strong><span id="monsterName"></span></strong>
+                </span>
+                <span class="stat">
+                    Health: <strong><span id="monsterHealth"></span></strong>
+                </span>
             </div>
+
+            <!-- Texto descriptivo de la historia y las acciones del juego -->
             <div id="text">
                 Welcome to Dragon Repeller. You must defeat the dragon that is
                 preventing people from leaving the town. You are in the town
                 square. Where do you want to go? Use the buttons above.
             </div>
         </div>
+
+        <!-- Vincula el archivo JavaScript con la lógica del juego -->
         <script src="./assets/js/app.js"></script>
     </body>
 </html>

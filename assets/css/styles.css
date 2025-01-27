@@ -1,45 +1,52 @@
+/* Estilo general del fondo de la página */
 body {
     background-color: #0a0a23;
-  }
-  
-  #text {
+}
+
+/* Estilo del texto descriptivo del juego */
+#text {
     background-color: #0a0a23;
     color: #ffffff;
-    padding: 10px;
-  }
-  
-  #game {
-    max-width: 500px;
-    max-height: 400px;
+    padding: 10px; /* Espaciado interno */
+}
+
+/* Contenedor principal del juego */
+#game {
+    max-width: 500px; /* Ancho máximo del contenedor */
+    max-height: 400px; /* Alto máximo del contenedor */
     background-color: #ffffff;
-    color: #ffffff;
-    margin: 30px auto 0px;
-    padding: 10px;
-  }
-  
-  #controls,
-  #stats {
+    color: #ffffff; /* Texto dentro del contenedor */
+    margin: 30px auto 0px; /* Centrado horizontal con margen superior */
+    padding: 10px; /* Espaciado interno */
+}
+
+/* Estilo para las secciones de controles y estadísticas */
+#controls,
+#stats {
+    border: 1px solid #0a0a23; /* Borde oscuro */
+    padding: 5px; /* Espaciado interno */
+    color: #0a0a23; /* Color del texto */
+}
+
+/* Estadísticas del monstruo, inicialmente ocultas */
+#monsterStats {
+    display: none; /* Oculta esta sección por defecto */
     border: 1px solid #0a0a23;
-    padding: 5px;
-    color: #0a0a23;
-  }
-  
-  #monsterStats {
-    display: none;
-    border: 1px solid #0a0a23;
-    padding: 5px;
-    color: #ffffff;
-    background-color: #c70d0d;
-  }
-  
-  .stat {
-    padding-right: 10px;
-  }
-  
-  button {
-    cursor: pointer;
-    color: #0a0a23;
-    background-color: #feac32;
-    background-image: linear-gradient(#fecc4c, #ffac33);
-    border: 3px solid #feac32;
-  }
+    padding: 5px; /* Espaciado interno */
+    color: #ffffff; /* Texto en blanco */
+    background-color: #c70d0d; /* Fondo rojo para resaltar */
+}
+
+/* Espaciado entre las estadísticas */
+.stat {
+    padding-right: 10px; /* Separación entre estadísticas */
+}
+
+/* Estilo general de los botones */
+button {
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    color: #0a0a23; /* Color del texto */
+    background-color: #feac32; /* Color de fondo base */
+    background-image: linear-gradient(#fecc4c, #ffac33); /* Efecto de degradado */
+    border: 3px solid #feac32; /* Borde con color de fondo base */
+}

@@ -1,3 +1,4 @@
+// Variables iniciales de estado del juego
 let xp = 0;
 let health = 100;
 let gold = 50;
@@ -6,6 +7,7 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
+// Referencias a elementos HTML
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -16,6 +18,8 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+
+// Definición de armas y monstruos
 const weapons = [
     { name: "stick", power: 5 },
     { name: "dagger", power: 30 },
@@ -23,22 +27,12 @@ const weapons = [
     { name: "sword", power: 100 },
 ];
 const monsters = [
-    {
-        name: "slime",
-        level: 2,
-        health: 15,
-    },
-    {
-        name: "fanged beast",
-        level: 8,
-        health: 60,
-    },
-    {
-        name: "dragon",
-        level: 20,
-        health: 300,
-    },
+    { name: "slime", level: 2, health: 15 },
+    { name: "fanged beast", level: 8, health: 60 },
+    { name: "dragon", level: 20, health: 300 },
 ];
+
+// Ubicaciones y sus configuraciones
 const locations = [
     {
         name: "town square",
@@ -102,13 +96,14 @@ const locations = [
     },
 ];
 
-// initialize buttons
+// Configura los botones iniciales
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
+// Actualiza la interfaz según la ubicación
 function update(location) {
-    monsterStats.style.display = "none";
+    monsterStats.style.display = "none"; // Oculta estadísticas del monstruo
     button1.innerText = location["button text"][0];
     button2.innerText = location["button text"][1];
     button3.innerText = location["button text"][2];
@@ -118,6 +113,7 @@ function update(location) {
     text.innerHTML = location.text;
 }
 
+// Funciones de navegación
 function goTown() {
     update(locations[0]);
 }
@@ -130,6 +126,7 @@ function goCave() {
     update(locations[2]);
 }
 
+// Compra de salud
 function buyHealth() {
     if (gold >= 10) {
         gold -= 10;
@@ -137,10 +134,11 @@ function buyHealth() {
         goldText.innerText = gold;
         healthText.innerText = health;
     } else {
-        text.innerText = "You do not have enough gold to buy health.";
+        text.innerText = "No tienes suficiente oro para comprar salud.";
     }
 }
 
+// Compra de armas
 function buyWeapon() {
     if (currentWeapon < weapons.length - 1) {
         if (gold >= 30) {
@@ -148,31 +146,33 @@ function buyWeapon() {
             currentWeapon++;
             goldText.innerText = gold;
             let newWeapon = weapons[currentWeapon].name;
-            text.innerText = "You now have a " + newWeapon + ".";
+            text.innerText = "Ahora tienes un " + newWeapon + ".";
             inventory.push(newWeapon);
-            text.innerText += " In your inventory you have: " + inventory;
+            text.innerText += " En tu inventario tienes: " + inventory;
         } else {
-            text.innerText = "You do not have enough gold to buy a weapon.";
+            text.innerText = "No tienes suficiente oro para comprar un arma.";
         }
     } else {
-        text.innerText = "You already have the most powerful weapon!";
-        button2.innerText = "Sell weapon for 15 gold";
+        text.innerText = "¡Ya tienes el arma más poderosa!";
+        button2.innerText = "Vender arma por 15 oro";
         button2.onclick = sellWeapon;
     }
 }
 
+// Vender armas
 function sellWeapon() {
     if (inventory.length > 1) {
         gold += 15;
         goldText.innerText = gold;
         let currentWeapon = inventory.shift();
-        text.innerText = "You sold a " + currentWeapon + ".";
-        text.innerText += " In your inventory you have: " + inventory;
+        text.innerText = "Vendiste un " + currentWeapon + ".";
+        text.innerText += " En tu inventario tienes: " + inventory;
     } else {
-        text.innerText = "Don't sell your only weapon!";
+        text.innerText = "¡No vendas tu única arma!";
     }
 }
 
+// Inicia una pelea con un monstruo
 function fightSlime() {
     fighting = 0;
     goFight();
@@ -188,6 +188,7 @@ function fightDragon() {
     goFight();
 }
 
+// Configuración para pelear
 function goFight() {
     update(locations[3]);
     monsterHealth = monsters[fighting].health;
@@ -196,19 +197,22 @@ function goFight() {
     monsterHealthText.innerText = monsterHealth;
 }
 
+// Realiza un ataque al monstruo
 function attack() {
-    text.innerText = "The " + monsters[fighting].name + " attacks.";
+    text.innerText = "El " + monsters[fighting].name + " ataca.";
     text.innerText +=
-        " You attack it with your " + weapons[currentWeapon].name + ".";
+        " Tú lo atacas con tu " + weapons[currentWeapon].name + ".";
     health -= getMonsterAttackValue(monsters[fighting].level);
     if (isMonsterHit()) {
         monsterHealth -=
             weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
     } else {
-        text.innerText += " You miss.";
+        text.innerText += " Fallaste.";
     }
     healthText.innerText = health;
     monsterHealthText.innerText = monsterHealth;
+
+    // Condiciones de victoria o derrota
     if (health <= 0) {
         lose();
     } else if (monsterHealth <= 0) {
@@ -219,25 +223,28 @@ function attack() {
         }
     }
     if (Math.random() <= 0.1 && inventory.length !== 1) {
-        text.innerText += " Your " + inventory.pop() + " breaks.";
+        text.innerText += " Tu " + inventory.pop() + " se rompe.";
         currentWeapon--;
     }
 }
 
+// Calcula el daño del monstruo
 function getMonsterAttackValue(level) {
     const hit = level * 5 - Math.floor(Math.random() * xp);
-    console.log(hit);
     return hit > 0 ? hit : 0;
 }
 
+// Verifica si el ataque impacta
 function isMonsterHit() {
     return Math.random() > 0.2 || health < 20;
 }
 
+// Esquivar el ataque
 function dodge() {
-    text.innerText = "You dodge the attack from the " + monsters[fighting].name;
+    text.innerText = "Esquivaste el ataque del " + monsters[fighting].name;
 }
 
+// Derrota a un monstruo
 function defeatMonster() {
     gold += Math.floor(monsters[fighting].level * 6.7);
     xp += monsters[fighting].level;
@@ -246,14 +253,17 @@ function defeatMonster() {
     update(locations[4]);
 }
 
+// Condición de derrota
 function lose() {
     update(locations[5]);
 }
 
+// Condición de victoria
 function winGame() {
     update(locations[6]);
 }
 
+// Reinicia el juego
 function restart() {
     xp = 0;
     health = 100;
@@ -266,10 +276,12 @@ function restart() {
     goTown();
 }
 
+// Juego secreto
 function easterEgg() {
     update(locations[7]);
 }
 
+// Selección en el juego secreto
 function pickTwo() {
     pick(2);
 }
@@ -283,16 +295,16 @@ function pick(guess) {
     while (numbers.length < 10) {
         numbers.push(Math.floor(Math.random() * 11));
     }
-    text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+    text.innerText = "Elegiste " + guess + ". Aquí están los números aleatorios:\n";
     for (let i = 0; i < 10; i++) {
         text.innerText += numbers[i] + "\n";
     }
     if (numbers.includes(guess)) {
-        text.innerText += "Right! You win 20 gold!";
+        text.innerText += "¡Correcto! Ganas 20 oro.";
         gold += 20;
         goldText.innerText = gold;
     } else {
-        text.innerText += "Wrong! You lose 10 health!";
+        text.innerText += "¡Incorrecto! Pierdes 10 salud.";
         health -= 10;
         healthText.innerText = health;
         if (health <= 0) {
