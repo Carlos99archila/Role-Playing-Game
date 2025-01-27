@@ -1,6 +1,5 @@
 # Role-Playing-Game
 
-RPG Text Adventure Game
 Este proyecto es un juego interactivo de aventuras basado en texto, desarrollado con HTML, CSS y JavaScript. El jugador asume el rol de un aventurero que explora diferentes ubicaciones, lucha contra monstruos y mejora sus habilidades.
 
 Características principales:
